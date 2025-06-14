@@ -1,227 +1,154 @@
-# 🔎 Recon Total - Shodan + Nmap
+# 🔎 Recon Total - Automated Network Reconnaissance Tool
 
-> **Ferramenta completa de reconnaissance que combina a poderosa API do Shodan com a versatilidade do Nmap**
+> **Powerful network reconnaissance combining Shodan API intelligence with Nmap scanning capabilities**
 
 [![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Shodan](https://img.shields.io/badge/Shodan-API-red.svg)](https://www.shodan.io/)
-[![Nmap](https://img.shields.io/badge/Nmap-Compatible-orange.svg)](https://nmap.org/)
+[![Security](https://img.shields.io/badge/security-pentesting-red.svg)](https://github.com/topics/pentesting)
 
-**Desenvolvido por:** Pentester Caio | CHDEVSEC
+**Network Scanner | IP Intelligence | Security Assessment | Penetration Testing Tool**
 
 ---
 
-## 📋 Sobre o Projeto
+## 🚀 Features
 
-O **Recon Total** é uma ferramenta de reconnaissance automatizada que combina duas das mais poderosas ferramentas de descoberta de informações: **Shodan** e **Nmap**. Esta solução oferece uma análise completa de alvos através de:
+- **Dual Intelligence**: Combines Shodan API data with local Nmap scanning
+- **Automated Reporting**: Generates timestamped reports with complete findings
+- **Service Detection**: Identifies open ports, services, and system information
+- **Error Handling**: Robust timeout and connection failure management
+- **Cross-Platform**: Compatible with Linux, macOS, and Windows
 
-- 🌐 **Consulta Shodan**: Informações detalhadas sobre serviços expostos publicamente
-- 🔍 **Scan Nmap**: Verificação local de portas e serviços ativos
-- 📊 **Relatório Unificado**: Compilação automática dos resultados em arquivo texto
+## 📦 Quick Start
 
-## ✨ Características
-
-- **Interface simples**: Execução via linha de comando com um único parâmetro
-- **Dupla verificação**: Combina dados do Shodan com scan local do Nmap
-- **Saída organizada**: Resultados salvos automaticamente com timestamp
-- **Tratamento de erros**: Gerenciamento robusto de timeouts e falhas de conexão
-- **Informações detalhadas**: Organização, país, OS, portas e serviços identificados
-
-## 🛠️ Pré-requisitos
-
-### Dependências do Sistema
+### Prerequisites
 ```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install nmap python3 python3-pip
-
-# CentOS/RHEL
-sudo yum install nmap python3 python3-pip
-
-# Arch Linux
-sudo pacman -S nmap python python-pip
+# Install dependencies
+pip install requests
+sudo apt install nmap  # Linux
+brew install nmap      # macOS
 ```
 
-### Dependências Python
+### Installation
 ```bash
-pip3 install requests
-```
-
-### API do Shodan
-1. Crie uma conta em [shodan.io](https://www.shodan.io/)
-2. Obtenha sua chave API gratuita
-3. Configure no script substituindo `SEU_TOKEN_API`
-
-## 🚀 Instalação
-
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/recon-total.git
-
-# Entre no diretório
+git clone https://github.com/username/recon-total.git
 cd recon-total
-
-# Torne o script executável
 chmod +x recon_total.py
 
-# Configure sua API key do Shodan
-nano recon_total.py
-# Substitua "SEU_TOKEN_API" pela sua chave real
+# Configure Shodan API key
+sed -i 's/SEU_TOKEN_API/your_actual_api_key/' recon_total.py
 ```
 
-## 💻 Uso
-
-### Sintaxe Básica
+### Usage
 ```bash
-python3 recon_total.py <IP_ALVO>
-```
+python3 recon_total.py <TARGET_IP>
 
-### Exemplos de Uso
-```bash
-# Análise de um IP específico
+# Example
 python3 recon_total.py 8.8.8.8
-
-# Análise de servidor web
-python3 recon_total.py 192.168.1.100
-
-# Análise com redirecionamento de saída
-python3 recon_total.py 10.0.0.1 | tee analise.log
 ```
 
-### Saída Esperada
+## 🔍 What It Does
+
+1. **Shodan Intelligence**: Queries Shodan database for:
+   - Organization and geolocation data
+   - Publicly exposed services
+   - Historical port information
+   - Operating system details
+
+2. **Nmap Scanning**: Performs local network scan for:
+   - Active port discovery
+   - Service version detection
+   - Real-time connectivity status
+
+3. **Report Generation**: Creates comprehensive reports with:
+   - Combined intelligence from both sources
+   - Timestamped findings
+   - Organized service information
+
+## 📊 Sample Output
+
 ```
 ============================================================
  🔎 RECON TOTAL - SHODAN + NMAP
  By Pentester Caio | CHDEVSEC
 ============================================================
 
-[+] Consultando Shodan para o IP: 8.8.8.8...
+[+] Querying Shodan for IP: 8.8.8.8...
 
-Organização: Google LLC
-País: United States
-Sistema Operacional: N/A
+Organization: Google LLC
+Country: United States
+Operating System: N/A
 
-Portas encontradas no Shodan:
- - Porta 53 | Serviço: Google Public DNS
- - Porta 443 | Serviço: HTTPS
+Shodan Ports Found:
+ - Port 53 | Service: Google Public DNS
+ - Port 443 | Service: HTTPS
 
-[+] Rodando Nmap no IP: 8.8.8.8...
+[+] Running Nmap scan on IP: 8.8.8.8...
+[Nmap results...]
 
-[Resultados do Nmap...]
-
-[+] Resultado salvo em: recon_8_8_8_8_20240614_143022.txt
+[+] Results saved to: recon_8_8_8_8_20240614_143022.txt
 ```
 
-## 📁 Estrutura dos Arquivos de Saída
+## ⚙️ Configuration
 
-Os resultados são salvos automaticamente no formato:
-```
-recon_[IP_COM_UNDERSCORES]_[TIMESTAMP].txt
-```
+### Shodan API Setup
+1. Register at [shodan.io](https://www.shodan.io/)
+2. Get your free API key
+3. Replace `SEU_TOKEN_API` in the script
 
-**Exemplo:** `recon_192_168_1_1_20240614_143022.txt`
+### Nmap Parameters
+Default scan: `-Pn -sV` (Skip ping, detect service versions)
 
-### Conteúdo do Arquivo
-```
-============================================================
-RECON TOTAL - SHODAN + NMAP
-By Pentester Caio | CHDEVSEC
-============================================================
-
-IP Alvo: 192.168.1.1
-
-[ SHODAN RESULTADO ]
-[Dados do Shodan...]
-
-[ NMAP RESULTADO ]
-[Dados do Nmap...]
-```
-
-## ⚙️ Configurações Avançadas
-
-### Timeout do Nmap
-O script inclui timeout de 3 minutos para scans Nmap. Para ajustar:
+Customize in script:
 ```python
-timeout=180  # Altere para o valor desejado em segundos
+["nmap", "-Pn", "-sV", "-sC", ip]  # Add script scanning
 ```
 
-### Parâmetros do Nmap
-Por padrão usa `-Pn -sV`. Para personalizar:
-```python
-["nmap", "-Pn", "-sV", ip]  # Modifique os parâmetros aqui
-```
+## 🛠️ Use Cases
 
-## 🔧 Solução de Problemas
+- **Network Security Assessment**: Identify exposed services and potential vulnerabilities
+- **Asset Discovery**: Map network infrastructure and service inventory  
+- **Penetration Testing**: Gather reconnaissance data for security testing
+- **Threat Intelligence**: Analyze target infrastructure and attack surface
+- **Compliance Auditing**: Verify security controls and service exposure
 
-### Erro de API Key
-```
-[!] Erro na API do Shodan: 401 - {"error": "Invalid API key"}
-```
-**Solução:** Verifique se sua chave API está correta no script.
+## 📝 Requirements
 
-### Timeout do Nmap
-```
-[!] Timeout: O Nmap demorou demais pra responder o IP X.X.X.X.
-```
-**Solução:** Aumente o valor do timeout ou verifique conectividade com o alvo.
+- Python 3.6+
+- Nmap installed and accessible in PATH
+- Shodan API key (free tier available)
+- Internet connection for Shodan queries
 
-### Nmap não encontrado
-```
-[!] Erro ao rodar Nmap: [Errno 2] No such file or directory: 'nmap'
-```
-**Solução:** Instale o Nmap através do gerenciador de pacotes do seu sistema.
+## 🔧 Troubleshooting
 
-## 🤝 Contribuindo
+| Issue | Solution |
+|-------|----------|
+| `Invalid API key` | Verify Shodan API key configuration |
+| `Nmap timeout` | Increase timeout value or check target connectivity |
+| `Command not found: nmap` | Install Nmap using system package manager |
 
-Contribuições são bem-vindas! Para contribuir:
+## 🤝 Contributing
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+Contributions welcome! Please read our contributing guidelines and submit pull requests for any improvements.
 
-## 📝 Changelog
+## ⚠️ Legal Disclaimer
 
-### v1.0.0
-- ✅ Integração inicial Shodan + Nmap
-- ✅ Salvamento automático de resultados
-- ✅ Tratamento de erros e timeouts
-- ✅ Interface CLI intuitiva
+**FOR AUTHORIZED SECURITY TESTING ONLY**
 
-## 📜 Licença
+This tool is designed for legitimate security professionals, researchers, and system administrators. Users must:
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+- ✅ Only scan systems you own or have explicit written permission to test
+- ✅ Comply with all applicable local and international laws
+- ✅ Follow responsible disclosure practices
+- ❌ Never use for unauthorized access or malicious activities
 
-## ⚠️ Disclaimer
+**The developer assumes no liability for misuse of this tool. Users are solely responsible for ensuring legal and ethical usage.**
 
-**IMPORTANTE: Esta ferramenta é destinada exclusivamente para fins educacionais e testes de segurança autorizados.**
+## 📊 Keywords
 
-- ✅ **Use apenas** em sistemas que você possui ou tem permissão explícita para testar
-- ✅ **Respeite** todas as leis locais e internacionais de cibersegurança
-- ✅ **Obtenha autorização** por escrito antes de usar em redes corporativas
-- ❌ **NÃO use** para atividades maliciosas, ilegais ou não autorizadas
-- ❌ **NÃO assume responsabilidade** por uso inadequado desta ferramenta
-
-### Responsabilidade Legal
-
-O desenvolvedor não se responsabiliza por qualquer uso inadequado desta ferramenta. O usuário é totalmente responsável por garantir que o uso esteja em conformidade com todas as leis aplicáveis e políticas organizacionais.
-
-### Ética em Segurança Cibernética
-
-Esta ferramenta segue os princípios de **Ethical Hacking** e **Responsible Disclosure**:
-- Sempre obtenha permissão antes de testar
-- Reporte vulnerabilidades de forma responsável
-- Respeite a privacidade e integridade dos dados
-- Use conhecimentos de segurança para proteger, não para prejudicar
+`network reconnaissance` `shodan api` `nmap scanner` `penetration testing` `security assessment` `network security` `port scanner` `vulnerability assessment` `cybersecurity tools` `infosec` `ethical hacking` `security research` `network mapping` `service discovery` `threat intelligence`
 
 ---
 
-## 👨‍💻 Autor
+**⭐ Star this repo if you find it useful for your security research!**
 
-**Pentester Caio | CHDEVSEC**
-
-- 🔗 GitHub: github.com/CHDevSec
-
----
-
-⭐ **Se este projeto foi útil para você, considere dar uma estrela!** ⭐
+**Developed by:** Pentester Caio | CHDEVSEC
